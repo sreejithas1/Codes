@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+           - vars.yml
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: name="{{item}}" state=present
+    with_items: 
+            - git
+            - ntp
+

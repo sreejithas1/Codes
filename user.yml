@@ -1,0 +1,9 @@
+---
+- hosts: johns
+  become: yes
+  tasks: 
+  - name: creating user
+    user: 
+      name: javasree
+      group: ec2-user
+      password: abc123

@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: yes
+  vars: 
+    git_url: https://github.com/javahometech/javahome-app
+    deploy_path: /var/www/html
+
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: name=httpd state=present
+  - name: Start and enable apache server
+    service: name=httpd state=started enabled=yes	
+  - name: Clone code form github and deploy to apache
+    git:
+      repo: "{{git_url}}"
+      dest: "{{deploy_path}}"
+  - name: Restart apache server
+    service: name=httpd state=restarted
+
+#---
+#- hosts: all
+#  become: yes
+#  tasks:
+#  - name: ensure apache is at the latest version
+#    yum: name=httpd state=present
+#    service: 
+#    name: httpd
+#    state: started
+#    enable: yes
+
+

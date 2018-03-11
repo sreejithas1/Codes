@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+    - name: Install apache server
+      yum: name=httpd state=present
+    - name: Run apache server 
+      service: name=httpd state=started
+    - name: Run on Vm start
+      service: name=httpd enabled=yes
+    - name: clone code from git but and deploy on apache
+      git:
+         repo: https://github.com/javahometech/javahome-app.git
+         dest: /var/www/html
+    - name: Restart apache server
+      service: name=httpd state=restarted 

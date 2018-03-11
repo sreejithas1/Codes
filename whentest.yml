@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: yes
+  vars_files: 
+             - vars.yml 
+
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: name=httpd state=present
+    when: ansible_os_family == "RedHat"
+  - name: Start and enable apache server
+    service: name=httpd state=started enabled=yes	
+  - name: Clone code form github and deploy to apache
+    git:
+      repo: "{{git_url}}"
+      dest: "{{deploy_path}}"
+  - name: Restart apache server
+    service: name=httpd state=restarted
+
+#    -----WORKING THIS FILE---
+
+
+
+
+

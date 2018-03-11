@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: yes
+  vars_files: 
+             - vars.yml 
+
+  tasks:
+
+  - name: ensure apache is at the latest version
+    yum: name=httpd state=present
+    tags: tag1
+  - name: Start and enable apache server
+    service: name=httpd state=started enabled=yes	
+    tags: tag2
+  - name: Clone code form github and deploy to apache
+    git:
+      repo: "{{git_url}}"
+      dest: "{{deploy_path}}"
+    tags: tag3
+  - name: Restart apache server
+    service: name=httpd state=restarted
+    tags: tag4
+
+

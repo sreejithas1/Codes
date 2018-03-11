@@ -1,0 +1,15 @@
+---
+- hosts: johns
+  become: yes
+  tasks: 
+  - name: delete file from ansile node
+    file:
+      path: /home/ec2-user/sreejith/test1
+      state: absent
+
+
+
+#  - name: copy file from Cm to Node
+#    copy: 
+#      src: /home/ubuntu/sreejith/test1
+#      dest: /home/ec2-user/sreejith
